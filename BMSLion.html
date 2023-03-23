@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<!-- saved from url=(0020)http://192.168.0.10/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BMSLion</title>
+<link rel="icon" type="image/x-icon" href="http://192.168.0.10/favicon.ico">
+<link rel="stylesheet" href="./BMSLion_files/fontem.css">
+<link rel="stylesheet" href="./BMSLion_files/w3pro.css">
+<link rel="stylesheet" href="./BMSLion_files/w3-theme-khaki.css">
+<link rel="stylesheet" href="./BMSLion_files/main.css">
+<script type="text/javascript" src="./BMSLion_files/main.js.download"></script><style type="text/css" id="operaUserStyle"></style>
+<script type="text/javascript" src="./BMSLion_files/index.js.download"></script>
+<style type="text/css"></style></head>
+<body class="w3-theme-light" oncontextmenu="return false;" onload="startPoll()">
+<!-- !SIDEBAR! -->
+<div class="w3-sidebar w3-collapse w3-theme w3-xxlarge w3-animate-left sidebar" style="z-index:5;" id="appsidebar">
+<a href="http://192.168.0.10/index.html" class="w3-bar-item w3-button w3-theme-action"><i class="fe-home"></i></a> 
+<a href="http://192.168.0.10/settings.html" class="w3-bar-item w3-button"><i class="fe-sliders"></i></a> 
+<a href="http://192.168.0.10/network.html" class="w3-bar-item w3-button"><i class="fe-globe"></i></a> 
+<a href="http://192.168.0.10/login.html" class="w3-bar-item w3-button"><i class="fe-lock"></i></a>
+</div>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="Sidebar.close()" style="cursor:pointer" id="appoverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main w3-animate-opacity content">
+
+<!-- Top container -->
+<div class="w3-bar w3-top w3-padding" style="z-index:4;">
+<button class="w3-bar-item w3-hide-large w3-right w3-button w3-theme-light w3-xlarge w3-card-2" onclick="Sidebar.open()"><i class="fe-right-open w3-xlarge"></i></button>
+</div>
+
+<div class="w3-row-padding w3-margin-bottom">
+<h1>
+<i class="fe-signal"></i> Pano
+</h1>
+<div class="w3-col m4">
+<div class="w3-container w3-theme-l3 w3-padding-small">
+<div class="w3-left">
+<i class="fe-chart-line w3-xxlarge"></i>
+</div>
+<div class="w3-right">
+    <h2 id="vtot">47.85 V</h2>
+</div>
+<div class="w3-right">
+    <h2 id="vext" style="padding-right: 30px">12.88 V</h2>
+</div>
+<div class="w3-clear"></div>
+<div class="w3-left">
+<h5>Paket Gerilimi</h5>
+</div>
+<div class="w3-right" id="voltageAlarm">
+</div>
+</div>
+</div>
+
+<div class="w3-col m4">
+<div class="w3-container w3-theme-l2 w3-padding-small">
+<div class="w3-left">
+<i class="fe-flash w3-xxlarge"></i>
+</div>
+<div class="w3-right">
+<h2 id="curr">0 A</h2>
+</div>
+<div class="w3-clear"></div>
+<div class="w3-left">
+<h5>Akım</h5>
+</div>
+<div class="w3-right" id="currentAlarm">
+</div>
+</div>
+</div>
+
+<div class="w3-col m4">
+<div class="w3-container w3-theme-l3 w3-padding-small">
+<div class="w3-left">
+<i class="fe-thermometer-3 w3-xxlarge"></i>
+</div>
+<div class="w3-right">
+<h2 id="temp">22 ℃</h2>
+</div>
+<div class="w3-clear"></div>
+<div class="w3-left">
+<h5>Sıcaklık</h5>
+</div>
+<div class="w3-right" id="tempAlarm">
+</div>
+</div>
+</div>
+</div>
+
+
+<div class="w3-row-padding w3-margin-bottom">
+<div class="w3-col m4">
+<div class="w3-container w3-theme-l1 w3-padding-small">
+<div class="w3-left w3-xxlarge">
+<i class="fe-battery-0" id="iconSoC"></i>
+</div>
+<div class="w3-right">
+<h2 id="soc">3 %</h2>
+</div>
+<div class="w3-clear"></div>
+<h5>Şarj Seviyesi</h5>
+</div>
+</div>
+
+<div class="w3-col m4">
+<div class="w3-container w3-theme-l2 w3-padding-small">
+<div class="w3-left">
+<i class="fe-heart w3-xxlarge"></i>
+</div>
+<div class="w3-right">
+<h2 id="soh">100 %</h2>
+</div>
+<div class="w3-clear"></div>
+<h5>Sağlık Durumu</h5>
+</div>
+</div>
+
+<div class="w3-col m4">
+<div class="w3-container w3-theme-l1 w3-padding-small">
+<div class="w3-left">
+<i class="fe-fuel w3-xxlarge"></i>
+</div>
+<div class="w3-right">
+<h2 id="capacity">100 Ah</h2>
+</div>
+<div class="w3-clear"></div>
+<h5>Kapasite</h5>
+</div>
+</div>
+</div>
+
+
+<div class="w3-row-padding w3-margin-bottom">
+<div class="w3-col m4">
+<div class="w3-container w3-theme-l3 w3-padding-small">
+<div class="w3-left">
+<i class="fe-minus w3-xxlarge"></i>
+</div>
+<div class="w3-right">
+<h2 id="load">0 kW</h2>
+</div>
+<div class="w3-clear"></div>
+<h5>Yük</h5>
+</div>
+</div>
+
+<div class="w3-col m4">
+<div class="w3-container w3-theme-l2 w3-padding-small">
+<div class="w3-left">
+<i class="fe-plus w3-xxlarge"></i>
+</div>
+<div class="w3-right">
+<h2 id="charge">0 kW</h2>
+</div>
+<div class="w3-clear"></div>
+<h5>Şarj</h5>
+</div>
+</div>
+
+<div class="w3-col m4">
+<div class="w3-container w3-theme-l3 w3-padding-small">
+<div class="w3-left w3-xxlarge">
+<i class="fe-clock"></i>
+</div>
+<div class="w3-right">
+<h2 id="est">29:48</h2>
+</div>
+<div class="w3-clear"></div>
+<h5>Yedekleme Süresi</h5>
+</div>
+</div>
+</div>
+
+
+<div class="w3-row-padding w3-margin-bottom">
+<div class="w3-col m4">
+<div class="w3-container w3-theme-l1 w3-padding-small">
+<div class="w3-left">
+<i class="fe-usb w3-xxlarge"></i>
+</div>
+<div class="w3-right">
+<h2 id="usb">Yok</h2>
+</div>
+<div class="w3-clear"></div>
+<h5>USB Disk</h5>
+</div>
+</div>
+
+<div class="w3-col m4">
+<div class="w3-container w3-theme-l2 w3-padding-small">
+<div class="w3-left">
+<i class="fe-exchange w3-xxlarge"></i>
+</div>
+<div class="w3-right">
+<h2 id="contactors">Bağlı | Bağlı</h2>
+</div>
+<div class="w3-clear"></div>
+<h5>İndikatörler</h5>
+</div>
+</div>
+
+<div class="w3-col m4">
+<div class="w3-container w3-theme-l1 w3-padding-small">
+<div class="w3-left">
+<i class="fe-info-circled w3-xxlarge"></i>
+</div>
+<div class="w3-right">
+<h2 id="mode">Bekleme</h2>
+</div>
+<div class="w3-clear"></div>
+<h5>Çalışma Durumu</h5>
+</div>
+</div>
+</div>
+
+
+<div class="w3-row-padding w3-margin-bottom">
+<div class="w3-half">
+<div class="w3-container w3-theme-l4 w3-padding-small">
+<h3 class="w3-theme-l2 w3-center">Batarya Gerilimleri</h3>
+<div class="w3-row">
+<table class="w3-table w3-striped w3-bottombar w3-border-theme">
+<tbody><tr class="w3-theme-l3 w3-topbar w3-bottombar w3-border-theme">
+<th class="w3-center">Sıra</th>
+<th class="w3-center">Gerilim</th>
+<th class="w3-center">Durum</th>
+</tr>
+</tbody><tbody id="tbVolts"><tr id="rowvolts_1"><td>1</td><td id="volts_1" class="w3-right-align">3.679</td><td id="hlvolts_1" class="w3-center"></td></tr><tr id="rowvolts_2"><td>2</td><td id="volts_2" class="w3-right-align">3.679</td><td id="hlvolts_2" class="w3-center"></td></tr><tr id="rowvolts_3"><td>3</td><td id="volts_3" class="w3-right-align">3.679</td><td id="hlvolts_3" class="w3-center"></td></tr><tr id="rowvolts_4"><td>4</td><td id="volts_4" class="w3-right-align">3.681</td><td id="hlvolts_4" class="w3-center"></td></tr><tr id="rowvolts_5"><td>5</td><td id="volts_5" class="w3-right-align">3.678</td><td id="hlvolts_5" class="w3-center"><i class="fe-down-big"></i></td></tr><tr id="rowvolts_6"><td>6</td><td id="volts_6" class="w3-right-align">3.681</td><td id="hlvolts_6" class="w3-center"></td></tr><tr id="rowvolts_7"><td>7</td><td id="volts_7" class="w3-right-align">3.678</td><td id="hlvolts_7" class="w3-center"></td></tr><tr id="rowvolts_8"><td>8</td><td id="volts_8" class="w3-right-align">3.679</td><td id="hlvolts_8" class="w3-center"></td></tr><tr id="rowvolts_9"><td>9</td><td id="volts_9" class="w3-right-align">3.683</td><td id="hlvolts_9" class="w3-center"></td></tr><tr id="rowvolts_10"><td>10</td><td id="volts_10" class="w3-right-align">3.682</td><td id="hlvolts_10" class="w3-center"></td></tr><tr id="rowvolts_11"><td>11</td><td id="volts_11" class="w3-right-align">3.678</td><td id="hlvolts_11" class="w3-center"></td></tr><tr id="rowvolts_12"><td>12</td><td id="volts_12" class="w3-right-align">3.683</td><td id="hlvolts_12" class="w3-center"></td></tr><tr id="rowvolts_13"><td>13</td><td id="volts_13" class="w3-right-align">3.685</td><td id="hlvolts_13" class="w3-center"><i class="fe-up-big"></i></td></tr></tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="w3-half">
+<div class="w3-container w3-theme-l4 w3-padding-small">
+<h3 class="w3-theme-l2 w3-center">Batarya Sıcaklıkları</h3>
+<div class="w3-row">
+<table class="w3-table w3-striped w3-bottombar w3-border-theme">
+<tbody><tr class="w3-theme-l3 w3-topbar w3-bottombar w3-border-theme">
+<th class="w3-center">Sıra</th>
+<th class="w3-center">Sıcaklık</th>
+<th class="w3-center">Durum</th>
+</tr>
+</tbody><tbody id="tbTemps"><tr id="rowtemps_1"><td>1</td><td id="temps_1" class="w3-right-align">21</td><td id="hltemps_1" class="w3-center"></td></tr><tr id="rowtemps_2"><td>2</td><td id="temps_2" class="w3-right-align">21</td><td id="hltemps_2" class="w3-center"></td></tr><tr id="rowtemps_3"><td>3</td><td id="temps_3" class="w3-right-align">21</td><td id="hltemps_3" class="w3-center"></td></tr><tr id="rowtemps_4"><td>4</td><td id="temps_4" class="w3-right-align">22</td><td id="hltemps_4" class="w3-center"></td></tr><tr id="rowtemps_5"><td>5</td><td id="temps_5" class="w3-right-align">22</td><td id="hltemps_5" class="w3-center"></td></tr></tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<script>
+function startPoll(){
+//      System.ajax("get", "index.json", true, "application/json", null, decorate, error);
+let delay = 500;
+let timerId = setTimeout(function refresh(){
+System.ajax("get", "index.json", true, "application/json", null, decorate, error);
+clearTimeout(timerId);
+timerId = setTimeout(refresh, delay);
+}, delay);
+}
+</script>
+
+</body></html>

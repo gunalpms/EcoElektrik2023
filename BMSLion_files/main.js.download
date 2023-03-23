@@ -1,0 +1,135 @@
+/**
+ * 
+ */
+var Sidebar = (function() {
+return new Sidebar();
+});
+
+Sidebar.open = function() {
+var appsidebar = document.getElementById("appsidebar");
+var appoverlay = document.getElementById("appoverlay");
+
+if (appsidebar.style.display == 'block') {
+appsidebar.style.display = 'none';
+appoverlay.style.display = "none";
+} else {
+appsidebar.style.display = 'block';
+appoverlay.style.display = "block";
+}
+
+};
+
+Sidebar.close = function() {
+if (appsidebar.style.display == 'block') {
+appsidebar.style.display = 'none';
+appoverlay.style.display = "none";
+} else {
+appsidebar.style.display = 'block';
+appoverlay.style.display = "block";
+}
+};
+
+var System = (function() {
+return new System();
+});
+
+System.ajax = function(method, url, synch, ctype, params, fnResponse, fnError) {
+var xmlhttp;
+if (window.XMLHttpRequest) {
+xmlhttp = new XMLHttpRequest();
+} else {
+xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+}
+xmlhttp.onload = function() {
+//		alert(xmlhttp.readyState + " / " + xmlhttp.status);
+if (xmlhttp.readyState == 4) {
+if (xmlhttp.status == 200 || xmlhttp.status == 0) {
+if (fnResponse != null) {
+fnResponse(xmlhttp.responseText);
+}
+} else {
+if (fnError != null) {
+fnError(xmlhttp.responseText);
+}
+}
+} else {
+
+}
+};
+
+
+if (method != null && (method === "POST" || method === "post")) {
+xmlhttp.open(method, url, synch);
+if (ctype != null) {
+xmlhttp.setRequestHeader("Content-type", ctype);
+}
+if (params != null) {
+xmlhttp.send(params);
+} else {
+xmlhttp.send();
+}
+} else {
+xmlhttp.open(method, url + (params == null ? "" : "?" + params), synch);
+if (ctype != null) {
+xmlhttp.setRequestHeader("Content-type", ctype);
+}
+xmlhttp.send();
+}
+}
+
+System.decorateError = function(value){
+var i, str;
+var json = JSON.parse(value);
+var warn  = document.getElementById("warn");
+if(warn != null){
+if(json.err != null && json.err.length > 0){
+if(json.err[0] === "success"){
+warn.className = warn.className.replace(/\bw3-pale-yellow\b/g, "w3-pale-green");
+str = "<b>İşlem başarıyla tamamlandı.</b>";
+}else{
+warn.className = warn.className.replace(/\bw3-pale-green\b/g, "w3-pale-yellow");
+str = "<ul>";
+for(i=0; i<json.err.length; i++){
+var label = null, parent = null;
+var elem = document.getElementsByName(json.err[i])[0];
+if(elem != null){
+parent = document.getElementsByName(json.err[i])[0].parentElement;
+if(parent != null){
+label = parent.getElementsByTagName("LABEL")[0];
+}
+}
+str = str.concat("<li><b>\"" + ((label != null) ? label.innerHTML : json.err[i]) + "\"</b> alanı boş/eksik/yanlış girilmiş!</li>");
+}
+str = str.concat("</ul>");
+}
+document.getElementById("warnp").innerHTML = str;
+warn.style.display = "block";
+}else{
+warn.style.display = "none";
+}
+}
+}
+
+System.decorateForm = function(value){
+var i;
+var json = JSON.parse(value);
+for (x in json) {
+var elem = document.getElementsByName(x)[0];
+var name = "";
+if(elem != null){
+name = elem.nodeName.toLowerCase();
+if(name === "span" || name === "label" || name === "div" ){
+elem.innerHTML = json[x];
+}else
+if(name == "input"){
+if(elem.type === "checkbox"){
+elem.checked = json[x];
+}else{
+elem.value = json[x];
+}
+}else{
+elem.value = json[x];
+}
+}
+}
+}

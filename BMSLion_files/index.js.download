@@ -1,0 +1,137 @@
+var tbVoltCount = 0, tbTempCount = 0, minVIndex = 0, minTIndex = 0, maxVIndex = 0, maxTIndex = 0;
+var tpPreAlarm = 0 , vpPreAlarm = 0, cpPreAlarm = 0;
+var modeText = ["Başlangıç", "Şarj", "Deşarj", "Balans", "Kapanış", "Bekleme", "Test"];
+var usbText = ["Yok", "Var"];
+var alarmText = ["Pasif", "Aktif"];
+var contactorText = ["Açık", "Kapalı"];
+
+function decorateTable(tbId, json, attr, preCount, premax, premin, max, min, decimal, balance){
+var html = "";
+if(json[attr] != null){
+if(preCount != json[attr].length){
+for(i=0; i<json[attr].length; i++){
+html += "<tr id='row" + attr + "_" + (i+1) + "'><td>" + (i+1) + "</td><td id='" + attr + "_" + (i+1) + "' class=\"w3-right-align\">" 
++ Number(json[attr][i]).toFixed(decimal) + "</td><td id='hl" + attr + "_" + (i+1) + "' class=\"w3-center\"></td></tr>";
+}
+preCount = json[attr].length;
+document.getElementById(tbId).innerHTML = html;
+}else{
+for(i=0; i<json[attr].length; i++){
+document.getElementById(attr + "_" + (i+1)).innerHTML = "" + Number(json[attr][i]).toFixed(decimal);
+}
+}
+if(premax != max && premax > 0){
+document.getElementById("hl" + attr + "_" + premax).innerHTML = "";
+}
+if(max > 0){
+document.getElementById("hl" + attr + "_" + max).innerHTML = "<i class='fe-up-big'></i>";
+}
+if(premin != min && premin > 0){
+document.getElementById("hl" + attr + "_" + premin).innerHTML = "";
+}
+if(min > 0){
+document.getElementById("hl" + attr + "_" + min).innerHTML = "<i class='fe-down-big'></i>";
+}
+}else{
+document.getElementById(tbId).innerHTML = html;
+}
+}
+
+function healthColor(value){
+if(value < 15) return "w3-text-red";
+else if(value < 43) return "w3-text-orange";
+else if(value < 67) return "w3-text-yellow";
+else if(value < 95) return "w3-text-light-green";
+return "w3-text-green";
+}
+
+function decorateSoC(value){
+var icon  = document.getElementById("iconSoC");
+var lvl = 0;
+if(value < 15) lvl = 0;
+else if(value < 43) lvl = 1;
+else if(value < 67) lvl = 2;
+else if(value < 95) lvl = 3;
+else if(value <= 100) lvl = 4;
+icon.className = "fe-battery-" + lvl; // + " " + healthColor(value);
+}
+
+function decorate(value){
+var json = JSON.parse(value);
+var vtot  = document.getElementById("vtot");
+vtot.innerHTML =  json.vtot + " V";
+var vext  = document.getElementById("vext");
+vext.innerHTML =  json.vext + " V";
+var curr  = document.getElementById("curr");
+curr.innerHTML =  json.curr + " A";
+var temp  = document.getElementById("temp");
+temp.innerHTML =  json.temp + " &#x2103;";
+var soc  = document.getElementById("soc");
+soc.innerHTML =  json.soc + " %";
+var soh  = document.getElementById("soh");
+soh.innerHTML =  json.soh + " %";
+var est  = document.getElementById("est");
+est.innerHTML =  json.est;
+var load  = document.getElementById("load");
+load.innerHTML =  json.load + " kW";
+var charge  = document.getElementById("charge");
+charge.innerHTML =  json.charge + " kW";
+var capacity  = document.getElementById("capacity");
+capacity.innerHTML =  json.capacity + " Ah";
+var mode  = document.getElementById("mode");
+mode.innerHTML =  modeText[json.mode];
+var usb  = document.getElementById("usb");
+usb.innerHTML =  usbText[json.usb];
+//	var alarm  = document.getElementById("alarm");
+//	alarm.innerHTML =  alarmText[json.alarm];
+
+var tpAlarm = ((json.flags & 0x03) > 0);
+var vpAlarm = ((json.flags & 0x0C) > 0);
+var cpAlarm = ((json.flags & 0x10) > 0);
+// birim-pilleri 49v ve 44v geribildirimleri 
+var cc = (((json.flags & 0x40) > 0) ? "Bağlı":"Ayrık");
+var dcc = (((json.flags & 0x80) > 0) ? "Bağlı":"Ayrık");
+var contactors  = document.getElementById("contactors");
+contactors.innerHTML = cc + " | " + dcc;
+
+if(tpAlarm != tpPreAlarm){
+if(tpAlarm){
+document.getElementById("tempAlarm").innerHTML = "<i class='fe-attention w3-xlarge w3-text-red'></i>";
+}else{
+document.getElementById("tempAlarm").innerHTML = "";
+}
+}
+if(vpAlarm != vpPreAlarm){
+if(vpAlarm){
+document.getElementById("voltageAlarm").innerHTML = "<i class='fe-attention w3-xlarge w3-text-red'></i>";
+}else{
+document.getElementById("voltageAlarm").innerHTML = "";
+}
+}
+if(cpAlarm != cpPreAlarm){
+if(cpAlarm){
+document.getElementById("currentAlarm").innerHTML = "<i class='fe-attention w3-xlarge w3-text-red'></i>";
+}else{
+document.getElementById("currentAlarm").innerHTML = "";
+}
+}
+
+decorateTable("tbVolts", json, "volts", tbVoltCount, maxVIndex, minVIndex, json.vmax_ind, json.vmin_ind, 3, vpAlarm);
+tbVoltCount = json.volts.length;
+maxVIndex = json.vmax_ind;
+minVIndex = json.vmin_ind;
+
+decorateTable("tbTemps", json, "temps", tbTempCount, maxTIndex, minTIndex, json.tmax_ind, json.tmin_ind, 0, tpAlarm);
+tbTempCount = json.temps.length;
+maxTIndex = json.tmax_ind;
+minTIndex = json.tmin_ind;
+
+decorateSoC(json.soc);
+
+tpPreAlarm = tpAlarm;
+vpPreAlarm = vpAlarm;
+cpPreAlarm = cpAlarm;
+}
+
+function error(value){
+}
