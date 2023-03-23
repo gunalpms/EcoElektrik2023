@@ -1,0 +1,89 @@
+@font-face {
+  font-family: 'fontem';
+  src: url('../fonts/fontem.eot?83411091');
+  src: url('../fonts/fontem.eot?83411091#iefix') format('embedded-opentype'),
+       url('../fonts/fontem.woff2?83411091') format('woff2'),
+       url('../fonts/fontem.woff?83411091') format('woff'),
+       url('../fonts/fontem.ttf?83411091') format('truetype'),
+       url('../fonts/fontem.svg?83411091#fontem') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'fontem';
+    src: url('../font/fontem.svg?83411091#fontem') format('svg');
+  }
+}
+*/
+ 
+ [class^="fe-"]:before, [class*=" fe-"]:before {
+  font-family: "fontem";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+ 
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+ 
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+ 
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+ 
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+ 
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+ 
+  /* Font smoothing. That was taken from TWBS */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+ 
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+ 
+.fe-home:before { content: '\e800'; }
+.fe-up-big:before { content: '\e801'; }
+.fe-floppy:before { content: '\e802'; }
+.fe-down-big:before { content: '\e803'; }
+.fe-minus:before { content: '\e804'; }
+.fe-signal:before { content: '\e805'; }
+.fe-plus:before { content: '\e806'; }
+.fe-clock:before { content: '\e807'; }
+.fe-chart-bar:before { content: '\e808'; }
+.fe-cog-alt:before { content: '\e809'; }
+.fe-lock:before { content: '\e80b'; }
+.fe-attention:before { content: '\e80c'; }
+.fe-flash:before { content: '\e80d'; }
+.fe-globe:before { content: '\e80e'; }
+.fe-heart:before { content: '\e80f'; }
+.fe-login:before { content: '\e810'; }
+.fe-user:before { content: '\e811'; }
+.fe-right-open:before { content: '\e812'; }
+.fe-info-circled:before { content: '\e813'; }
+.fe-fuel:before { content: '\e819'; }
+.fe-rss:before { content: '\f09e'; }
+.fe-exchange:before { content: '\f0ec'; }
+.fe-sliders:before { content: '\f1de'; }
+.fe-trash:before { content: '\f1f8'; }
+.fe-chart-line:before { content: '\f201'; }
+.fe-battery-4:before { content: '\f240'; }
+.fe-battery-3:before { content: '\f241'; }
+.fe-battery-2:before { content: '\f242'; }
+.fe-battery-1:before { content: '\f243'; }
+.fe-battery-0:before { content: '\f244'; }
+.fe-usb:before { content: '\f287'; }
+.fe-thermometer-3:before { content: '\f2c8'; }

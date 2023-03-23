@@ -1,0 +1,25 @@
+/*.icon-selected,.icon-selected:hover{color:#000!important;background-color:#ffc107!important}
+.w3-text-white,.w3-hover-text-white:hover{color:#fff!important}*/
+.icon-selected,.icon-selected:hover {
+	color: #ffc107 !important
+}
+
+.sidebar {
+	width: 82px;
+}
+
+.content {
+	margin-left: 82px;
+}
+
+.rotate-90 {
+	-ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)"; -webkit-transform: rotate(90deg); transform: rotate(90deg);
+}
+
+.rotate-180 {
+	-ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2)"; -webkit-transform: rotate(180deg); transform: rotate(180deg);
+}
+
+.rotate-270 {
+	-ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)"; -webkit-transform: rotate(270deg); transform: rotate(270deg);
+}
